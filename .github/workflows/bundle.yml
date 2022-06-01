@@ -71,8 +71,8 @@ jobs:
           git add -A
           git commit -m "Remove files"
 
-      # Merge productionize branch into deno branch:
-      - name: 'Merge productionize branch into deno branch'
+      # Merge production branch into deno branch:
+      - name: 'Merge production branch into deno branch'
         run: |
           git merge origin/production --allow-unrelated-histories
 
@@ -187,11 +187,34 @@ jobs:
       - name: 'Checkout repository'
         uses: actions/checkout@v3
 
-      # Checkout production branch:
-      - name: 'Checkout production branch'
+      # Configure git:
+      - name: 'Configure git'
+        run: |
+          git config --local user.email "noreply@stdlib.io"
+          git config --local user.name "stdlib-bot"
+
+      # Checkout deno branch:
+      - name: 'Checkout umd branch'
         run: |
           git fetch --all
-          git checkout -b production origin/production
+          git checkout -b umd origin/umd
+
+      # Delete everything in current directory:
+      - name: 'Delete everything in current directory'
+        run: |
+          find . -type 'f' | grep -v -e ".git/" | xargs rm
+          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
+
+      # Commit changes:
+      - name: 'Commit changes'
+        run: |
+          git add -A
+          git commit -m "Remove files"
+
+      # Merge production branch into umd branch:
+      - name: 'Merge production branch into umd branch'
+        run: |
+          git merge origin/production --allow-unrelated-histories
 
       # Copy files to umd directory:
       - name: 'Copy files to umd directory'
@@ -255,42 +278,6 @@ jobs:
           # Create package.json file for umd branch:
           jq --indent 2 '{"name": .name, "version": .version, "description": .description, "license": .license, "main": "./bundle.js", "homepage": .homepage, "repository": .repository, "bugs": .bugs, "keywords": .keywords, "funding": .funding}' package.json > ./umd/package.json
 
-      # Configure git:
-      - name: 'Configure git'
-        run: |
-          git config --local user.email "noreply@stdlib.io"
-          git config --local user.name "stdlib-bot"
-
-      # Check if remote `umd` branch exists:
-      - name: 'Check if remote `umd` branch exists'
-        id: umd-branch-exists
-        continue-on-error: true
-        run: |
-          git ls-remote --exit-code --heads origin umd
-          if [ $? -eq 0 ]; then
-            echo "::set-output name=remote-exists::true"
-          else
-            echo "::set-output name=remote-exists::false"
-          fi
-
-      # If `umd` exists, checkout branch and rebase on `main`:
-      - name: 'If `umd` exists, checkout branch and rebase on `main`'
-        if: steps.umd-branch-exists.outputs.remote-exists
-        continue-on-error: true
-        run: |
-          git checkout -b umd origin/umd
-          git rebase main -s recursive -X ours
-          while [ $? -ne 0 ]; do
-            git rebase --skip
-          done
-
-      # If `umd` does not exist, checkout `main` and create `umd` branch:
-      - name: 'If `umd` does not exist, checkout `main` and create `umd` branch'
-        if: ${{ steps.umd-branch-exists.outputs.remote-exists == false }}
-        run: |
-          git checkout main
-          git checkout -b umd
-
       # Delete everything in current directory aside from umd folder:
       - name: 'Delete everything in current directory aside from umd folder'
         run: |
@@ -314,7 +301,7 @@ jobs:
         run: |
           SLUG=${{ github.repository }}
           echo "Pushing changes to $SLUG..."
-          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$SLUG.git" umd --force
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$SLUG.git" umd
 
       # Send status to Slack channel if job fails:
       - name: 'Send status to Slack channel in case of failure'
@@ -340,14 +327,37 @@ jobs:
       - name: 'Checkout repository'
         uses: actions/checkout@v3
 
-      # Checkout production branch:
-      - name: 'Checkout production branch'
+      # Configure git:
+      - name: 'Configure git'
+        run: |
+          git config --local user.email "noreply@stdlib.io"
+          git config --local user.name "stdlib-bot"
+
+      # Checkout esm branch:
+      - name: 'Checkout esm branch'
         run: |
           git fetch --all
-          git checkout -b production origin/production
+          git checkout -b esm origin/esm
 
-      # Copy files to umd directory:
-      - name: 'Copy files to umd directory'
+      # Delete everything in current directory:
+      - name: 'Delete everything in current directory'
+        run: |
+          find . -type 'f' | grep -v -e ".git/" | xargs rm
+          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
+
+      # Commit changes:
+      - name: 'Commit changes'
+        run: |
+          git add -A
+          git commit -m "Remove files"
+
+      # Merge production branch into esm branch:
+      - name: 'Merge production branch into esm branch'
+        run: |
+          git merge origin/production --allow-unrelated-histories
+
+      # Copy files to esm directory:
+      - name: 'Copy files to esm directory'
         run: |
           mkdir -p esm
           cp README.md LICENSE CONTRIBUTORS NOTICE ./esm
@@ -412,42 +422,6 @@ jobs:
           # Create package.json file for esm branch:
           jq --indent 2 '{"name": .name, "version": .version, "description": .description, "license": .license, "type": "module", "main": "./index.mjs", "homepage": .homepage, "repository": .repository, "bugs": .bugs, "keywords": .keywords, "funding": .funding}' package.json > ./esm/package.json
 
-      # Configure git:
-      - name: 'Configure git'
-        run: |
-          git config --local user.email "noreply@stdlib.io"
-          git config --local user.name "stdlib-bot"
-
-      # Check if remote `esm` branch exists:
-      - name: 'Check if remote `esm` branch exists'
-        id: esm-branch-exists
-        continue-on-error: true
-        run: |
-          git ls-remote --exit-code --heads origin esm
-          if [ $? -eq 0 ]; then
-            echo "::set-output name=remote-exists::true"
-          else
-            echo "::set-output name=remote-exists::false"
-          fi
-
-      # If `esm` exists, checkout branch and rebase on `main`:
-      - name: 'If `esm` exists, checkout branch and rebase on `main`'
-        if: steps.esm-branch-exists.outputs.remote-exists
-        continue-on-error: true
-        run: |
-          git checkout -b esm origin/esm
-          git rebase main -s recursive -X ours
-          while [ $? -ne 0 ]; do
-            git rebase --skip
-          done
-
-      # If `esm` does not exist, checkout `main` and create `esm` branch:
-      - name: 'If `esm` does not exist, checkout `main` and create `esm` branch'
-        if: ${{ steps.esm-branch-exists.outputs.remote-exists == false }}
-        run: |
-          git checkout main
-          git checkout -b esm
-
       # Delete everything in current directory aside from esm folder:
       - name: 'Delete everything in current directory aside from esm folder'
         run: |
@@ -471,7 +445,7 @@ jobs:
         run: |
           SLUG=${{ github.repository }}
           echo "Pushing changes to $SLUG..."
-          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$SLUG.git" esm --force
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$SLUG.git" esm
 
       # Send status to Slack channel if job fails:
       - name: 'Send status to Slack channel in case of failure'

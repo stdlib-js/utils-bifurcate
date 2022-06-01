@@ -53,11 +53,30 @@ jobs:
           git config --local user.email "noreply@stdlib.io"
           git config --local user.name "stdlib-bot"
 
-      # Checkout deno branch:
-      - name: 'Checkout deno branch'
+      # Check if remote `deno` branch exists:
+      - name: 'Check if remote `deno` branch exists'
+        id: deno-branch-exists
+        continue-on-error: true
         run: |
           git fetch --all
+          git ls-remote --exit-code --heads origin deno
+          if [ $? -eq 0 ]; then
+            echo "::set-output name=remote-exists::true"
+          else
+            echo "::set-output name=remote-exists::false"
+          fi
+
+      # If `deno` exists, checkout deno branch:
+      - name: 'If `deno` exists, checkout deno branch'
+        if: steps.deno-branch-exists.outputs.remote-exists
+        run: |
           git checkout -b deno origin/deno
+
+      # If `deno` does not exist, create `deno` branch:
+      - name: 'If `deno` does not exist, create `deno` branch'
+        if: ${{ steps.deno-branch-exists.outputs.remote-exists == false }}
+        run: |
+          git checkout -b deno
 
       # Delete everything in current directory:
       - name: 'Delete everything in current directory'
@@ -193,11 +212,30 @@ jobs:
           git config --local user.email "noreply@stdlib.io"
           git config --local user.name "stdlib-bot"
 
-      # Checkout deno branch:
-      - name: 'Checkout umd branch'
+      # Check if remote `umd` branch exists:
+      - name: 'Check if remote `umd` branch exists'
+        id: umd-branch-exists
+        continue-on-error: true
         run: |
           git fetch --all
+          git ls-remote --exit-code --heads origin umd
+          if [ $? -eq 0 ]; then
+            echo "::set-output name=remote-exists::true"
+          else
+            echo "::set-output name=remote-exists::false"
+          fi
+
+      # If `umd` exists, checkout umd branch:
+      - name: 'If `umd` exists, checkout umd branch'
+        if: steps.umd-branch-exists.outputs.remote-exists
+        run: |
           git checkout -b umd origin/umd
+
+      # If `umd` does not exist, create `umd` branch:
+      - name: 'If `umd` does not exist, create `umd` branch'
+        if: ${{ steps.umd-branch-exists.outputs.remote-exists == false }}
+        run: |
+          git checkout -b umd
 
       # Delete everything in current directory:
       - name: 'Delete everything in current directory'
@@ -333,11 +371,30 @@ jobs:
           git config --local user.email "noreply@stdlib.io"
           git config --local user.name "stdlib-bot"
 
-      # Checkout esm branch:
-      - name: 'Checkout esm branch'
+      # Check if remote `esm` branch exists:
+      - name: 'Check if remote `esm` branch exists'
+        id: esm-branch-exists
+        continue-on-error: true
         run: |
           git fetch --all
+          git ls-remote --exit-code --heads origin esm
+          if [ $? -eq 0 ]; then
+            echo "::set-output name=remote-exists::true"
+          else
+            echo "::set-output name=remote-exists::false"
+          fi
+
+      # If `esm` exists, checkout esm branch:
+      - name: 'If `esm` exists, checkout esm branch'
+        if: steps.esm-branch-exists.outputs.remote-exists
+        run: |
           git checkout -b esm origin/esm
+
+      # If `esm` does not exist, create `esm` branch:
+      - name: 'If `esm` does not exist, create `esm` branch'
+        if: ${{ steps.esm-branch-exists.outputs.remote-exists == false }}
+        run: |
+          git checkout -b esm
 
       # Delete everything in current directory:
       - name: 'Delete everything in current directory'

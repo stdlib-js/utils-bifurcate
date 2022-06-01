@@ -74,7 +74,7 @@ jobs:
       # Merge productionize branch into deno branch:
       - name: 'Merge productionize branch into deno branch'
         run: |
-          git merge origin/productionize
+          git merge origin/production
 
       # Copy files to deno directory:
       - name: 'Copy files to deno directory'

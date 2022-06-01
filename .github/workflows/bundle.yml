@@ -66,34 +66,26 @@ jobs:
             echo "::set-output name=remote-exists::false"
           fi
 
-      # If `deno` exists, checkout deno branch:
-      - name: 'If `deno` exists, checkout deno branch'
+      # If `deno` exists, delete everything in branch and merge `production` into it
+      - name: 'If `deno` exists, delete everything in branch and merge `production` into it'
         if: steps.deno-branch-exists.outputs.remote-exists
         run: |
           git checkout -b deno origin/deno
+
+          find . -type 'f' | grep -v -e ".git/" | xargs rm
+          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
+
+          git add -A
+          git commit -m "Remove files"
+
+          git merge origin/production --allow-unrelated-histories
 
       # If `deno` does not exist, create `deno` branch:
       - name: 'If `deno` does not exist, create `deno` branch'
         if: ${{ steps.deno-branch-exists.outputs.remote-exists == false }}
         run: |
+          git checkout production
           git checkout -b deno
-
-      # Delete everything in current directory:
-      - name: 'Delete everything in current directory'
-        run: |
-          find . -type 'f' | grep -v -e ".git/" | xargs rm
-          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
-
-      # Commit changes:
-      - name: 'Commit changes'
-        run: |
-          git add -A
-          git commit -m "Remove files"
-
-      # Merge production branch into deno branch:
-      - name: 'Merge production branch into deno branch'
-        run: |
-          git merge origin/production --allow-unrelated-histories
 
       # Copy files to deno directory:
       - name: 'Copy files to deno directory'
@@ -225,34 +217,26 @@ jobs:
             echo "::set-output name=remote-exists::false"
           fi
 
-      # If `umd` exists, checkout umd branch:
-      - name: 'If `umd` exists, checkout umd branch'
+      # If `umd` exists, delete everything in branch and merge `production` into it
+      - name: 'If `umd` exists, delete everything in branch and merge `production` into it'
         if: steps.umd-branch-exists.outputs.remote-exists
         run: |
           git checkout -b umd origin/umd
+
+          find . -type 'f' | grep -v -e ".git/" | xargs rm
+          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
+
+          git add -A
+          git commit -m "Remove files"
+
+          git merge origin/production --allow-unrelated-histories
 
       # If `umd` does not exist, create `umd` branch:
       - name: 'If `umd` does not exist, create `umd` branch'
         if: ${{ steps.umd-branch-exists.outputs.remote-exists == false }}
         run: |
+          git checkout production
           git checkout -b umd
-
-      # Delete everything in current directory:
-      - name: 'Delete everything in current directory'
-        run: |
-          find . -type 'f' | grep -v -e ".git/" | xargs rm
-          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
-
-      # Commit changes:
-      - name: 'Commit changes'
-        run: |
-          git add -A
-          git commit -m "Remove files"
-
-      # Merge production branch into umd branch:
-      - name: 'Merge production branch into umd branch'
-        run: |
-          git merge origin/production --allow-unrelated-histories
 
       # Copy files to umd directory:
       - name: 'Copy files to umd directory'
@@ -384,34 +368,26 @@ jobs:
             echo "::set-output name=remote-exists::false"
           fi
 
-      # If `esm` exists, checkout esm branch:
-      - name: 'If `esm` exists, checkout esm branch'
+      # If `esm` exists, delete everything in branch and merge `production` into it
+      - name: 'If `esm` exists, delete everything in branch and merge `production` into it'
         if: steps.esm-branch-exists.outputs.remote-exists
         run: |
           git checkout -b esm origin/esm
+
+          find . -type 'f' | grep -v -e ".git/" | xargs rm
+          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
+
+          git add -A
+          git commit -m "Remove files"
+
+          git merge origin/production --allow-unrelated-histories
 
       # If `esm` does not exist, create `esm` branch:
       - name: 'If `esm` does not exist, create `esm` branch'
         if: ${{ steps.esm-branch-exists.outputs.remote-exists == false }}
         run: |
+          git checkout production
           git checkout -b esm
-
-      # Delete everything in current directory:
-      - name: 'Delete everything in current directory'
-        run: |
-          find . -type 'f' | grep -v -e ".git/" | xargs rm
-          find . -mindepth 1 -type 'd' | grep -v -e ".git" | xargs rm -rf
-
-      # Commit changes:
-      - name: 'Commit changes'
-        run: |
-          git add -A
-          git commit -m "Remove files"
-
-      # Merge production branch into esm branch:
-      - name: 'Merge production branch into esm branch'
-        run: |
-          git merge origin/production --allow-unrelated-histories
 
       # Copy files to esm directory:
       - name: 'Copy files to esm directory'

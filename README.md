@@ -63,7 +63,9 @@ If no recognized module system is present, access bundle contents via the global
 ```html
 <script type="text/javascript">
 (function () {
+(function () {
     window.bifurcate;
+})();
 })();
 </script>
 ```
@@ -143,6 +145,7 @@ var out = bifurcate( arr, opts, filter );
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@umd/browser.js"></script>
 <script type="text/javascript">
 (function () {
+(function () {
 
 var vals;
 var arr;
@@ -170,6 +173,7 @@ for ( i = 0; i < arr.length; i++ ) {
 out = bifurcate( arr, f );
 console.log( out );
 
+})();
 })();
 </script>
 </body>
@@ -281,11 +285,11 @@ Copyright &copy; 2016-2022. The Stdlib [Authors][stdlib-authors].
 
 <!-- <related-links> -->
 
-[@stdlib/utils/bifurcate-by]: https://github.com/stdlib-js/utils-bifurcate-by/tree/umd
+[@stdlib/utils/bifurcate-by]: https://github.com/stdlib-js/utils-bifurcate-by/tree/umd/tree/umd
 
-[@stdlib/utils/bifurcate-own]: https://github.com/stdlib-js/utils-bifurcate-own/tree/umd
+[@stdlib/utils/bifurcate-own]: https://github.com/stdlib-js/utils-bifurcate-own/tree/umd/tree/umd
 
-[@stdlib/utils/group]: https://github.com/stdlib-js/utils-group/tree/umd
+[@stdlib/utils/group]: https://github.com/stdlib-js/utils-group/tree/umd/tree/umd
 
 <!-- </related-links> -->
 

@@ -37,6 +37,9 @@
     "url": "https://github.com/stdlib-js/stdlib/issues"
   },
   "dependencies": {
+    "@stdlib/array-base-bifurcate-entries": "github:stdlib-js/array-base-bifurcate-entries#main",
+    "@stdlib/array-base-bifurcate-indices": "github:stdlib-js/array-base-bifurcate-indices#main",
+    "@stdlib/array-base-bifurcate-values": "github:stdlib-js/array-base-bifurcate-values#main",
     "@stdlib/assert-has-own-property": "^0.1.1",
     "@stdlib/assert-is-collection": "^0.1.0",
     "@stdlib/assert-is-plain-object": "^0.1.1",
@@ -47,12 +50,12 @@
   "devDependencies": {
     "@stdlib/array-float64": "^0.1.1",
     "@stdlib/assert-is-array": "^0.1.1",
-    "@stdlib/bench": "^0.2.1",
     "@stdlib/math-base-special-floor": "^0.1.1",
     "@stdlib/random-base-randu": "^0.1.0",
     "tape": "git+https://github.com/kgryte/tape.git#fix/globby",
     "istanbul": "^0.4.1",
-    "tap-min": "git+https://github.com/Planeshifter/tap-min.git"
+    "tap-min": "git+https://github.com/Planeshifter/tap-min.git",
+    "@stdlib/bench-harness": "^0.1.2"
   },
   "engines": {
     "node": ">=0.10.0",

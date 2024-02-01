@@ -37,9 +37,9 @@
     "url": "https://github.com/stdlib-js/stdlib/issues"
   },
   "dependencies": {
-    "@stdlib/array-base-bifurcate-entries": "github:stdlib-js/array-base-bifurcate-entries#main",
-    "@stdlib/array-base-bifurcate-indices": "github:stdlib-js/array-base-bifurcate-indices#main",
-    "@stdlib/array-base-bifurcate-values": "github:stdlib-js/array-base-bifurcate-values#main",
+    "@stdlib/array-base-bifurcate-entries": "^0.1.0",
+    "@stdlib/array-base-bifurcate-indices": "^0.1.0",
+    "@stdlib/array-base-bifurcate-values": "^0.1.0",
     "@stdlib/assert-has-own-property": "^0.1.1",
     "@stdlib/assert-is-collection": "^0.1.0",
     "@stdlib/assert-is-plain-object": "^0.1.1",

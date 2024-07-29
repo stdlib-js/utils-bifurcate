@@ -52,7 +52,7 @@ limitations under the License.
 ## Usage
 
 ```javascript
-import bifurcate from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@deno/mod.js';
+import bifurcate from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@v0.2.2-deno/mod.js';
 ```
 
 #### bifurcate( collection, \[options,] filter )
@@ -124,7 +124,7 @@ var out = bifurcate( arr, opts, filter );
 ```javascript
 import randu from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-base-randu@deno/mod.js';
 import floor from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-base-special-floor@deno/mod.js';
-import bifurcate from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@deno/mod.js';
+import bifurcate from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@v0.2.2-deno/mod.js';
 
 var vals;
 var arr;

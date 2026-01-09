@@ -45,14 +45,32 @@ limitations under the License.
 
 <!-- Package usage documentation. -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/utils-bifurcate
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
 ```javascript
-import bifurcate from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@esm/index.mjs';
+var bifurcate = require( '@stdlib/utils-bifurcate' );
 ```
 
 #### bifurcate( collection, \[options,] filter )
@@ -121,15 +139,10 @@ var out = bifurcate( arr, opts, filter );
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="module">
-
-import randu from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-base-randu@esm/index.mjs';
-import floor from 'https://cdn.jsdelivr.net/gh/stdlib-js/math-base-special-floor@esm/index.mjs';
-import bifurcate from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-bifurcate@esm/index.mjs';
+```javascript
+var randu = require( '@stdlib/random-base-randu' );
+var floor = require( '@stdlib/math-base-special-floor' );
+var bifurcate = require( '@stdlib/utils-bifurcate' );
 
 var vals;
 var arr;
@@ -156,10 +169,6 @@ for ( i = 0; i < arr.length; i++ ) {
 // Compute the groups:
 out = bifurcate( arr, f );
 console.log( out );
-
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -183,7 +192,7 @@ console.log( out );
 ## See Also
 
 -   <span class="package-name">[`@stdlib/utils-bifurcate-by`][@stdlib/utils/bifurcate-by]</span><span class="delimiter">: </span><span class="description">split values into two groups according to a predicate function.</span>
--   <span class="package-name">[`@stdlib/utils-bifurcate-own`][@stdlib/utils/bifurcate-own]</span><span class="delimiter">: </span><span class="description">split an object's own property values into two groups according to a predicate function.</span>
+-   <span class="package-name">[`@stdlib/object-bifurcate-own`][@stdlib/object/bifurcate-own]</span><span class="delimiter">: </span><span class="description">split an object's own property values into two groups according to a predicate function.</span>
 -   <span class="package-name">[`@stdlib/utils-group`][@stdlib/utils/group]</span><span class="delimiter">: </span><span class="description">group values as arrays associated with distinct keys.</span>
 
 </section>
@@ -199,7 +208,7 @@ console.log( out );
 
 ## Notice
 
-This package is part of [stdlib][stdlib], a standard library with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
+This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
 
 For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
 
@@ -216,7 +225,7 @@ See [LICENSE][stdlib-license].
 
 ## Copyright
 
-Copyright &copy; 2016-2025. The Stdlib [Authors][stdlib-authors].
+Copyright &copy; 2016-2026. The Stdlib [Authors][stdlib-authors].
 
 </section>
 
@@ -242,8 +251,8 @@ Copyright &copy; 2016-2025. The Stdlib [Authors][stdlib-authors].
 
 -->
 
-[chat-image]: https://img.shields.io/gitter/room/stdlib-js/stdlib.svg
-[chat-url]: https://app.gitter.im/#/room/#stdlib-js_stdlib:gitter.im
+[chat-image]: https://img.shields.io/badge/zulip-join_chat-brightgreen.svg
+[chat-url]: https://stdlib.zulipchat.com
 
 [stdlib]: https://github.com/stdlib-js/stdlib
 
@@ -270,11 +279,11 @@ Copyright &copy; 2016-2025. The Stdlib [Authors][stdlib-authors].
 
 <!-- <related-links> -->
 
-[@stdlib/utils/bifurcate-by]: https://github.com/stdlib-js/utils-bifurcate-by/tree/esm
+[@stdlib/utils/bifurcate-by]: https://github.com/stdlib-js/utils-bifurcate-by
 
-[@stdlib/utils/bifurcate-own]: https://github.com/stdlib-js/utils-bifurcate-own/tree/esm
+[@stdlib/object/bifurcate-own]: https://github.com/stdlib-js/object-bifurcate-own
 
-[@stdlib/utils/group]: https://github.com/stdlib-js/utils-group/tree/esm
+[@stdlib/utils/group]: https://github.com/stdlib-js/utils-group
 
 <!-- </related-links> -->
 
